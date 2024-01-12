@@ -26,7 +26,8 @@ class BarcodeScanner(reactContext: ReactApplicationContext) : ReactContextBaseJa
     @ReactMethod
     fun scanBarcode() {
         val integrator = IntentIntegrator(currentActivity)
-        integrator.setOrientationLocked(false)
+        integrator.setCaptureActivity(AnyOrientationCaptureActivity::class.java)
+        integrator.setOrientationLocked(false);
         integrator.setBeepEnabled(false)
         integrator.initiateScan()
     }
@@ -38,7 +39,6 @@ class BarcodeScanner(reactContext: ReactApplicationContext) : ReactContextBaseJa
             reactContext = context
         }
         fun onActivityResult(result: IntentResult?) {
-
             if (result != null ) {
                 val barcode = result?.contents
                 if (barcode != null) {
