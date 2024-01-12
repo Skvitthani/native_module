@@ -23,13 +23,15 @@ const App = () => {
   };
 
   useEffect(() => {
-    const eventEmitter = new NativeEventEmitter(NativeModuleCall);
-    const eventListener = eventEmitter.addListener('EventReminder', event => {
-      console.log('Received event:', event);
-    });
-    return () => {
-      eventListener.remove();
-    };
+    if (Platform.OS === 'ios') {
+      const eventEmitter = new NativeEventEmitter(NativeModuleCall);
+      const eventListener = eventEmitter.addListener('EventReminder', event => {
+        console.log('Received event:', event);
+      });
+      return () => {
+        eventListener.remove();
+      };
+    }
   }, []);
 
   return (
