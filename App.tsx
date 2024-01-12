@@ -1,6 +1,7 @@
 import {
   Text,
   View,
+  Platform,
   StyleSheet,
   NativeModules,
   TouchableOpacity,
@@ -18,11 +19,15 @@ const App = () => {
   };
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={onPress} style={styles.buttonStyle}>
-        <Text style={styles.textStyle}>
-          Click to invoke your native module!
-        </Text>
-      </TouchableOpacity>
+      {Platform.OS === 'android' ? (
+        <TouchableOpacity onPress={onPress} style={styles.buttonStyle}>
+          <Text style={styles.textStyle}>
+            Click to invoke your native module!
+          </Text>
+        </TouchableOpacity>
+      ) : (
+        <Text>Only for android</Text>
+      )}
     </View>
   );
 };
@@ -32,13 +37,13 @@ export default App;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
     backgroundColor: 'white',
     justifyContent: 'center',
   },
   buttonStyle: {
     padding: 10,
     borderRadius: 10,
-    alignSelf: 'center',
     backgroundColor: '#365486',
   },
   textStyle: {
