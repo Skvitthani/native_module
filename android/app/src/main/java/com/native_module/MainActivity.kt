@@ -1,9 +1,11 @@
 package com.native_module
 
+import android.content.Intent
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
 import com.facebook.react.defaults.DefaultReactActivityDelegate
+import com.google.zxing.integration.android.IntentIntegrator
 
 class MainActivity : ReactActivity() {
 
@@ -12,6 +14,17 @@ class MainActivity : ReactActivity() {
    * rendering of the component.
    */
   override fun getMainComponentName(): String = "native_module"
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        BarcodeScanner.onActivityResult(
+            IntentIntegrator.parseActivityResult(
+                requestCode,
+                resultCode,
+                data
+            )
+        )
+    }
 
   /**
    * Returns the instance of the [ReactActivityDelegate]. We use [DefaultReactActivityDelegate]
