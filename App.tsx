@@ -1,10 +1,27 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import {Button, NativeModules, SafeAreaView, StyleSheet, Text, View,NativeEventEmitter} from 'react-native';
+import React, { useEffect } from 'react';
 
+
+const {CustomMethods} = NativeModules
 const App = () => {
+  useEffect(()=>{
+    const YourModule = new NativeEventEmitter(NativeModules.RNEventEmitter)
+
+    const eventListener = YourModule.addListener('onReady',(string:string)=>{
+      console.log('string==========',string);
+    })
+
+  },[])
+
+
+  const onPress = () => {
+    CustomMethods.MyMethod("Sanket")
+  }
+
   return (
     <View style={styles.container}>
-      <Text>App js</Text>
+      <SafeAreaView/>
+      <Button title='Press' onPress={onPress}/>
     </View>
   );
 };

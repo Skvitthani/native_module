@@ -1,6 +1,7 @@
 #import "AppDelegate.h"
 
 #import <React/RCTBundleURLProvider.h>
+#import "native_module-Swift.h"
 
 @implementation AppDelegate
 
